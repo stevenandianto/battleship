@@ -117,4 +117,28 @@ func main() {
 		missile := model.Missile{Position: MissilePosition}
 		player2.Missile = append(player2.Missile, missile)
 	}
+
+	// check attack
+	score1 := len(player1.Ships)
+	score2 := len(player2.Ships)
+	for _, missile1 := range player1.Missile {
+		for _, ship2 := range player2.Ships {
+			if ship2.Position.PositionX == missile1.Position.PositionX && ship2.Position.PositionY == missile1.Position.PositionY {
+				ship2.Status = 0
+				score2--
+			}
+		}
+	}
+
+	for _, missile2 := range player2.Missile {
+		for _, ship1 := range player1.Ships {
+			if ship1.Position.PositionX == missile2.Position.PositionX && ship1.Position.PositionY == missile2.Position.PositionY {
+				ship1.Status = 0
+				score1--
+			}
+		}
+	}
+
+	fmt.Println(score1)
+	fmt.Println(score2)
 }
